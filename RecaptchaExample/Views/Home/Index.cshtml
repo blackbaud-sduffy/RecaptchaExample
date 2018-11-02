@@ -1,0 +1,33 @@
+﻿@model RecaptchaExample.Models.ReCaptchaValidationResult
+
+@{
+    ViewBag.Title = "Hello humans";
+}
+
+<div class="jumbotron">
+    <h1>Recaptcha</h1>
+    <p class="lead">Are you human or not?</p>
+    <p><a href="https://en.wikipedia.org/wiki/Turing_test" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Your name, human.</h2>
+        <p>
+            Enter a name. Any name. Then hit submit after verifying your human nature.
+        </p>
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            @Html.TextBox("name")<br /><br />
+            <div class="g-recaptcha"
+                 data-sitekey=@System.Configuration.ConfigurationManager.AppSettings["RecaptureSiteKey"]></div>
+            <input type="submit" value="Submit" />
+            <strong>@Html.ValidationSummary()</strong>
+        }
+        @if (Model != null)
+        {
+            <p>Hello @Model.Name. You appear human.</p>
+        }
+
+    </div>
+</div>
